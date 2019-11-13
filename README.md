@@ -1,6 +1,6 @@
 # Python4ML
 
-1. Click the green "Clone and download" button -> download zip file 
+1. Click the green "Clone or download" button -> download the zip file 
 
 2. Unzip the zip file and save the file to My Documents
 
