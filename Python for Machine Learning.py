@@ -3,6 +3,11 @@
 
 # # Python for Machine learning
 # 
+# ### Xiaojuan Zhu
+# ### Rochelle Butler
+# ### OIT Research Computing Support
+# ### Help Desk: 865-974-9900 
+# 
 # The basic idea of any machine learning model is to have a large number of inputs and the outputs. After analyzing more and more data, it tries to figure out the relationship between input and output.
 # 
 # Consider a very simple example when you have to decide whether to wear a jacket or not based on the outside temperature. You have the data below and we call it training data. 
@@ -33,6 +38,8 @@
 # pip install yellowbrick
 # ```
 
+# In[1]:
+
 
 import sklearn
 import yellowbrick
@@ -55,26 +62,36 @@ print("yellowbrick version is:" + yellowbrick.__version__)
 # 
 # ## How to Generate a Data Set
 
+# In[2]:
+
 
 # import randint function from random package
 from random import randint
+import numpy as np
 
 # Create two empty list to storage training input and output data 
 TrainInput = list()
 TrainOutput = list()
 
+err = np.zeros(100)
+
 # Generate 100 random set of x1 and x2
 for i in range(100):
     x1 = randint(0, 1000) # generate random integers between 0 and 1000. 
     x2 = randint(0, 1000)
-    y = x1 + (2*x2)
+    y = x1 + (2*x2) + err[i]
     #append method is to add x1 and x2 to the Train list.
     TrainInput.append([x1, x2]) 
     TrainOutput.append(y)
 
 
+# In[3]:
+
 
 TrainInput[0:6]
+
+
+# In[4]:
 
 
 TrainOutput[0:6]
@@ -87,29 +104,47 @@ TrainOutput[0:6]
 # We have generated the training data already, so create a linear regression model and pass it the training data. 
 # 
 
+# In[5]:
+
 
 from sklearn.linear_model import LinearRegression
-predictor=LinearRegression()
-# fit the model using traininput and trainoutput
-predictor.fit(X=TrainInput, y=TrainOutput)
+# create a regression model
+model = 
+# train the model by model.fit(TrainInput, TrainOutput)
+
 
 # get the coefficients and print out
-coefficient=predictor.coef_
+coefficient=model.coef_
+
 print('Coefficient : {}.'.format(coefficient))
 
+print ('Intercept: {}'.format(model.intercept_))
 
-# ### Test Data
+
+# ### Test the Model using Test Data
 # 
 # X = [[10, 20]]
 # 
-# The outcome should be 10+2*20 =50. Let us see what we get.
+# The outcome should be 10+2```*```20 =50. Let us see what we get.
+
+# In[ ]:
 
 
-Xtest = [[10, 20]]
-Outcome = predictor.predict(X=Xtest)
+# Test data
+Xtest =[[10, 20]]
+# test the model by predicting the test data model.predict(Xtest)
+Outcome = 
+# print the outcome
 print('Outcome: {}'.format(Outcome))
 
 
+# ## Steps
+# 1. import the data and prepare/clean the data
+# 2. Split the data into training and test
+# 3. Create a model
+# 4. Train the model
+# 5. test the model 
+# 6. Evaluate the model
 # ## Another Linear Regression Example
 # 
 # Sales (in thousands of units) for a particular product as a function of advertising budgets (in thousands of dollars) for TV, radio, and newspaper media. Suppose that in our role as statistical consultants we are asked to suggest.
@@ -119,25 +154,46 @@ print('Outcome: {}'.format(Outcome))
 # 
 # Reference: https://medium.com/simple-ai/linear-regression-intro-to-machine-learning-6-6e320dbdaf06
 
+# In[ ]:
+
 
 #import the packages
 import pandas as pd
 #import the adversting.csv data
-data =  pd.read_csv("I:\\Classes\\OIT_Training\\Python for Machine Learning\\Advertising.csv")
+data = pd.read_csv("Advertising.csv")
 # view the first five rows of the data
-data.head()
+data.head(10)
+
+
+# In[ ]:
+
 
 data.describe()
 
-# create a Python list of feature names
-feature_names = ['TV', 'radio', 'newspaper']
+
+# In[ ]:
+
+
+# create a Python list of feature names:'TV', 'radio', 'newspaper'
+feature_names = []
 feature_names
 
-# use the list to select a subset of the original DataFrame
+
+# In[ ]:
+
+
+# Select input variables Xs.
 X = data[feature_names]
 
-# use the list to select a subeset of the original DataFrame
-y = data['sales']
+
+# In[ ]:
+
+
+# Select 'sales' as the y variable
+y = data[]
+
+
+# In[ ]:
 
 
 # visualize relationship between the variables
@@ -148,10 +204,17 @@ visualizer.transform(data)
 visualizer.show()
 
 
+# In[ ]:
+
+
 # import train_test_split function
 from sklearn.model_selection import train_test_split
-# Split X and y into traning and testing sets
-X_train, X_test, y_train, y_test = train_test_split(X, y, random_state=1) # random_state=int, random_state is the seed used by the random number generator
+# Split X and y into traning and testing sets using train_test_split(X, y, random_state=1)
+X_train, X_test, y_train, y_test =  
+# Note random_state=int, random_state is the seed used by the random number generator
+
+
+# In[ ]:
 
 
 #import model
@@ -167,10 +230,19 @@ y_pred = linreg.predict(X_test)
 # Check the coefficient
 linreg.coef_
 
+
+# In[ ]:
+
+
 # plot the regression line use seaborn 
 # compute the R square value
 from sklearn.metrics import r2_score
+# check the Rsquare score using r2_score(y_test,y_pred)
 print('R2 Score:', r2_score(y_test,y_pred))
+
+
+# In[ ]:
+
 
 from yellowbrick.regressor import ResidualsPlot
 # Visualzie the training and fitting model and the residual histogram
@@ -195,7 +267,7 @@ visualizer.poof()                 # Draw/show/poof the data
 # 2. Import the data named "'bikeshare.csv" as a dataframe.
 # 
 # ```python
-# data =  pd.read_csv(r"I:\Classes\OIT_Training\Workshop\Python for Machine Learning\bikeshare.csv")
+# data =  pd.read_csv("bikeshare.csv")
 # ```
 # 3. Create a Python list of feature names:
 #     1. X is "season", "month", "hour", "holiday", "weekday", "workingday",
@@ -221,6 +293,8 @@ visualizer.poof()                 # Draw/show/poof the data
 # 9. Check the coefficient
 # 10. Visualize the residuals of training and testing model 
 
+# In[ ]:
+
 
 #import the packages
 import pandas as pd
@@ -231,7 +305,7 @@ from sklearn import metrics
 from yellowbrick.features import Rank2D
 from yellowbrick.regressor import ResidualsPlot
 # import data
-BikeData =  pd.read_csv(r"I:\Classes\OIT_Training\Python for Machine Learning\bikeshare.csv")
+BikeData =  pd.read_csv("bikeshare.csv")
 print(BikeData.head())
 featureNames = ["season", "month", "hour", "holiday", "weekday", "workingday", "weather", "temp", "feelslike", "humidity", "windspeed"]
 X = BikeData[featureNames]
@@ -247,7 +321,7 @@ visualizer.show()
 
 # ## A Simple Classification Problem
 # 
-# **supervised learning:** you train the machine using data which is well "labeled." It means some data is already tagged with the correct answer. It can be compared to learning which takes place in the presence of a supervisor or a teacher. 
+# **Supervised learning:** you train the machine using data which is well "labeled." It means some data is already tagged with the correct answer. It can be compared to learning which takes place in the presence of a supervisor or a teacher. 
 # 
 # **Unsupervised learning:** a machine learning technique, where you do not need to supervise the model. Instead, you need to allow the model to work on its own to discover information. It mainly deals with the unlabelled data.
 # 
@@ -260,9 +334,11 @@ visualizer.show()
 # For instance, suppose you are given a basket filled with different kinds of fruits and ask you to train the model and then to predict the fruit type using test data. 
 # The fruits dataset was created by Dr. Iain Murray from University of Edinburgh. He bought a few dozen oranges, mandarin, lemons and apples of different varieties, and recorded their measurements in a table. And then the professors at University of Michigan formatted the fruits data slightly. Let us import the data and see the first several rows of the data. 
 
+# In[6]:
+
 
 import pandas as pd
-fruits = pd.read_table(r"I:\Classes\OIT_Training\Python for Machine Learning\fruit_data_with_colors.txt")
+fruits = pd.read_table("fruit_data_with_colors.txt")
 fruits.head()
 
 
@@ -270,29 +346,46 @@ fruits.head()
 # 
 # We have 59 pieces of fruits and 7 features in the dataset:
 
+# In[7]:
+
 
 print(fruits.shape)
 
 
 # We have four types of fruits in the dataset: apple, mandarin, orange, and lemon.
 
-fruits.groupby('fruit_name').size()
+# In[8]:
+
+
 import seaborn as sns
 import matplotlib.pyplot as plt
-sns.countplot(fruits['fruit_name'], color='b', label='Count')
+sns.set_style("whitegrid")
+sns.catplot(x='fruit_name',  kind='count', color='b', data=fruits)
 plt.show()
+
+
+# In[9]:
+
 
 # Scatter plot 
 import seaborn as sns
 sns.scatterplot(x="width", y="height",hue="fruit_name", style="fruit_name", data=fruits)
 plt.show()
 
+
+# In[10]:
+
+
 # Descriptive Statistics 
 fruits.describe()
 
+
+# In[14]:
+
+
 #histogram for each numeric imput variable
 from scipy.stats import norm
-fruits.drop('fruit_label' ,axis=1).hist(bins=30, figsize=(9,9))
+fruits.drop('fruit_label', axis=1).hist(bins=30, figsize=(12,9))
 plt.show()
 
 
@@ -304,21 +397,30 @@ plt.show()
 # 
 # $ z_i = \frac{x_i - min(x_i)}{max(x_i) - min(x_i)}$
 # 
+# 
+# 
 
+# In[16]:
 
 
 #Create a feature list and y
-feature_names = ['mass', 'width', 'height', 'color_score']
+feature_names = ['mass','height' ,'width' , 'color_score' ]
 X = fruits[feature_names]
 y = fruits['fruit_label']
 #split the dataset into training and test
 from sklearn.model_selection import train_test_split
-X_train, X_test, y_train, y_test = train_test_split(X, y, random_state=0)
-#Use minmax
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3,random_state=0)
+#Use minmax scale
 from sklearn.preprocessing import MinMaxScaler
 scaler = MinMaxScaler()
 X_train = scaler.fit_transform(X_train)
 X_test = scaler.transform(X_test)
+
+
+# In[17]:
+
+
+X_train[0:6]
 
 
 # ## Fit a logistic regression model
@@ -330,34 +432,43 @@ X_test = scaler.transform(X_test)
 # 
 # **Accuracy:** the ratio of number of correct predictions to the total number of input samples. 
 
+# In[ ]:
+
 
 from sklearn.linear_model import LogisticRegression
 from yellowbrick.classifier import ConfusionMatrix
-logreg = LogisticRegression()
+model = 
+#logreg = LogisticRegression(solver='lbfgs', multi_class='auto')
 # The ConfusionMatrix visualizer taxes a model
-cm = ConfusionMatrix(logreg)
-# Fit the passed model. 
-cm.fit(X_train, y_train)
+cm = ConfusionMatrix(model)
+# Fit the passed model,cm.fit(X_train, y_train)
+
+
 # To create the ConfusionMatrix, we need some test data. Score runs predict() on the data
-# and then creates the confusion_matrix from scikit-learn.
-cm.score(X_test, y_test)
+# and then creates the confusion_matrix from scikit-learn,cm.score(X_test, y_test)
+
 
 # How did we do?
 # print out the confusion matrix
 cm.show()
+
+# :.f Here we specify 2 digits of precision and f is used to represent floating point number.
 print('Accuracy of Logistic regression classifier on training set: {:.2f}'
-     .format(logreg.score(X_train, y_train)))
+     .format(model.score(X_train, y_train)))
 print('Accuracy of Logistic regression classifier on test set: {:.2f}'
-     .format(logreg.score(X_test, y_test)))
+     .format(model.score(X_test, y_test))) 
 
 
 # ## Decision Tree 
 # A decision tree is a decision support tool that uses a tree-like graph or model of decisions and their possible consequences, including chance event outcomes, resource costs, and utility. It is one way to display an algorithm that only contains conditional control statements.
 # Reference:https://medium.com/greyatom/decision-trees-a-simple-way-to-visualize-a-decision-dc506a403aeb
 
+# In[ ]:
+
+
 from sklearn.tree import DecisionTreeClassifier
 
-dct = DecisionTreeClassifier()
+dct = 
 cm = ConfusionMatrix(dct)
 
 # Fit the passed model. 
@@ -378,9 +489,12 @@ print('Accuracy of Decision Tree classifier on test set: {:.2f}'
 # The KNN algorithm assumes that similar things exist in close proximity. In other words, similar things are near to each other.
 # Reference:https://towardsdatascience.com/machine-learning-basics-with-the-k-nearest-neighbors-algorithm-6a6e71d01761
 
+# In[ ]:
+
+
 from sklearn.neighbors import KNeighborsClassifier
 
-knn = KNeighborsClassifier()
+knn = 
 cm = ConfusionMatrix(knn)
 
 # Fit the passed model. 
@@ -403,8 +517,12 @@ print('Accuracy of K-NN classifier on test set: {:.2f}'
 # The main goal of dimensionality reduction techniques is to reduce the dimensions by removing the redundant and dependent features by transforming the features from higher dimensional space to a space with lower dimensions.
 # Reference:https://medium.com/@srishtisawla/linear-discriminant-analysis-d38decf48105
 
+# In[ ]:
+
+
 from sklearn.discriminant_analysis import LinearDiscriminantAnalysis
-lda = LinearDiscriminantAnalysis()
+
+lda = 
 
 cm = ConfusionMatrix(lda)
 
@@ -420,36 +538,6 @@ print('Accuracy of LDA classifier on training set: {:.2f}'
      .format(lda.score(X_train, y_train)))
 print('Accuracy of LDA classifier on test set: {:.2f}'
      .format(lda.score(X_test, y_test)))
-
-
-# ## Gaussian Naive Bayes
-# It is a classification technique based on Bayes’ Theorem with an assumption of independence among predictors. In simple terms, a Naive Bayes classifier assumes that the presence of a particular feature in a class is unrelated to the presence of any other feature.
-# 
-# **Pros:** It is easy and fast to predict class of test data set. It also perform well in multi class prediction
-# When assumption of independence holds, a Naive Bayes classifier performs better compare to other models like logistic regression and you need less training data.
-# It perform well in case of categorical input variables compared to numerical variable(s). For numerical variable, normal distribution is assumed (bell curve, which is a strong assumption).
-# 
-# **Cons:** If categorical variable has a category (in test data set), which was not observed in training data set, then model will assign a 0 (zero) probability and will be unable to make a prediction. This is often known as “Zero Frequency”. To solve this, we can use the smoothing technique. One of the simplest smoothing techniques is called Laplace estimation.
-# On the other side naive Bayes is also known as a bad estimator, so the probability outputs from predict_proba are not to be taken too seriously.
-# Another limitation of Naive Bayes is the assumption of independent predictors. In real life, it is almost impossible that we get a set of predictors which are completely independent.
-
-from sklearn.naive_bayes import GaussianNB
-
-gnb = GaussianNB()
-cm = ConfusionMatrix(gnb)
-
-# Fit the passed model. 
-cm.fit(X_train, y_train)
-# To create the ConfusionMatrix, we need some test data. Score runs predict() on the data
-# and then creates the confusion_matrix from scikit-learn.
-cm.score(X_test, y_test)
-
-# How did we do?
-cm.show()
-print('Accuracy of GNB classifier on training set: {:.2f}'
-     .format(gnb.score(X_train, y_train)))
-print('Accuracy of GNB classifier on test set: {:.2f}'
-     .format(gnb.score(X_test, y_test)))
 
 
 # ## Random Forest
@@ -484,9 +572,13 @@ print('Accuracy of GNB classifier on test set: {:.2f}'
 #    
 #   
 
+# In[ ]:
+
+
 from sklearn.ensemble import RandomForestClassifier
 
-rfc = RandomForestClassifier()
+rfc = 
+
 cm = ConfusionMatrix(rfc)
 
 # Fit the passed model. 
@@ -546,10 +638,14 @@ print('Accuracy of RFC classifier on test set: {:.2f}'
 #   
 #   Reference:  https://www.heatonresearch.com/2017/06/01/hidden-layers.html
 
+# In[ ]:
+
+
 from sklearn.neural_network import MLPClassifier
 
 mlp = MLPClassifier(hidden_layer_sizes=(20,20,20), max_iter=500)  # max_iter: Maximum number of iterations, default is 200.
-# hidden_layer_sizes (100, 100, 100): is a three-layer hidden layer NN with 20 neurons in the ith hidden layer.
+# hidden_layer_sizes (20, 20, 20): is a three-layer hidden layer NN with 20 neurons in the ith hidden layer.
+
 cm = ConfusionMatrix(mlp)
 
 # Fit fits the passed model. 
@@ -569,12 +665,12 @@ print('Accuracy of MLP classifier on test set: {:.2f}'
 # ## Model Evaluation
 # Common metrics for evaluating classifiers:
 # 
-# ![image.png](Confusion.png)
+# ![image.png](confusion.png)
 # 
 # 
-# **Precision** is the number of correct positive results divided by the number of all predicted positive results (e.g. How many of the mushrooms we predicted would be edible actually were?).
+# **Precision** is the number of correct positive results divided by the number of all predicted positive results .
 # 
-# **Recall** is the number of correct positive results divided by the number of actual positive results that should have been returned (e.g. How many of the mushrooms that were poisonous did we accurately predict were poisonous?).
+# **Recall** is the number of correct positive results divided by the number of actual positive results that should have been returned.
 # 
 # The **F1** score is a measure of a test’s accuracy. It considers both the precision and the recall of the test to compute the score. The F1 score can be interpreted as a weighted average of the precision and recall, where an F1 score reaches its best value at 1 and worst at 0.
 # ```python
@@ -584,6 +680,9 @@ print('Accuracy of MLP classifier on test set: {:.2f}'
 # 
 # F1 score = 2 * (true positives) / (2 * true positives + false positives + false negatives)
 # ```
+
+# In[ ]:
+
 
 from yellowbrick.classifier import ClassificationReport
 
@@ -596,11 +695,12 @@ g = visualizer.poof()             # Draw/show/poof the data
 
 
 # ## Predicted vs Actual in Test Data
-
-y_new=knn.predict(X_test)
-test = list(zip(y_new, y_test))
-print(test)
-
+# 
+# ```
+# y_new=knn.predict(X_test)
+# test = list(zip(y_new, y_test))
+# print(test)
+# ```
 
 # ## Exercise2: 
 # 
@@ -632,7 +732,7 @@ print(test)
 # # and then creates the confusion_matrix from scikit-learn.
 # cm.score(X_test, y_test)
 # # How did we do?
-# cm.poof()
+# cm.show()
 # print('Accuracy of RFC classifier on training set: {:.2f}'
 #      .format(gnb.score(X_train, y_train)))
 # print('Accuracy of RFC classifier on test set: {:.2f}'
@@ -641,26 +741,42 @@ print(test)
 # 
 # ```
 # 
+
+# In[1]:
+
+
 from sklearn.datasets import load_breast_cancer
 
 # Load dataset
 data = load_breast_cancer()
-data['data'][0:6]
+# check the data
+data['data'][0:1]
+
+
+# In[10]:
+
 
 # Organize our data
 y_names = data['target_names']
 y = data['target']
 feature_names = data['feature_names']
 X = data['data']
-
-
 # Split our data
 from sklearn.model_selection import train_test_split
 X_train, X_test, y_train, y_test = train_test_split(X,y,test_size=0.33,random_state=42)
+X_train[0:6]
+
+
+# In[9]:
+
 
 #fit Gaussian Naive model
+from sklearn.naive_bayes import GaussianNB
+from yellowbrick.classifier import ConfusionMatrix
+
 gnb = GaussianNB()
-cm = ConfusionMatrix(gnb, classes=y_names, label_encoder={0:'malignant', 1: 'benign'}  )
+cm = ConfusionMatrix(gnb, classes=y_names, label_encoder={0:'malignant', 1: 'benign'})
+
 # Fit fits the passed model. 
 cm.fit(X_train, y_train)
 # To create the ConfusionMatrix, we need some test data. Score runs predict() on the data
@@ -675,28 +791,50 @@ print('Accuracy of GNB classifier on test set: {:.2f}'
      .format(gnb.score(X_test, y_test)))
 
 
-# logistic regression
+
+# In[11]:
+
+
+# fit a logistic regression
+from sklearn.linear_model import LogisticRegression
+from yellowbrick.classifier import ConfusionMatrix
+
+logreg = 
+#logreg = LogisticRegression(solver='lbfgs', multi_class='auto')
+# Pass the model to the ConfusionMatrix visualizer cm = ConfusionMatrix(logreg)
+
+
+# train the model # cm.fit(X_train, y_train)
+
+
+# To create the ConfusionMatrix, we need some test data. Score runs predict() on the data
+# and then creates the confusion_matrix from scikit-learn, cm.score(X_test, y_test)
+
+# Evaluate the model
+# print out the confusion matrix
+cm.show()
+
+# :.f Here we specify 2 digits of precision and f is used to represent floating point number.
+print('Accuracy of Logistic regression classifier on training set: {:.2f}'
+     .format(logreg.score(X_train, y_train)))
+print('Accuracy of Logistic regression classifier on test set: {:.2f}'
+     .format(logreg.score(X_test, y_test))) 
 
 
 # ## Unsupervised Learning
 # 
-# When dealing with real-world problems, most of the time, data will not come with predefined labels, so we will want to develop machine learning models that can classify correctly the data, by finding by themselves some commonality in the features, that will be used to predict the classes on new data.
-# 
-# Unsupervised learning main applications are:
-# * Segmenting datasets by some shared attributes.
-# * Detecting anomalies that do not fit to any group.
-# * Simplify datasets by aggregating variables with similar attributes.
+# When dealing with real-world problems, most of the time, data will not come with predefined labels, so we will want to develop machine learning models that can correctly classified the data by finding some commomality in the features to predict the classes on new data.
 # 
 # Two main types of problems in unsupervised learning:
 # 
 # * Clustering
-# * Dimensionality Reduction
+# * Dimension Reduction
 # 
 # This workshop we will cover the clustering problems. 
 # 
 # ## Clustering Analysis
 # 
-# Cluster analysis or clustering is the task of grouping a set of objects in such a way that objects in the same group (called a cluster) are more similar (in some sense) to each other than to those in other groups (clusters).
+# Cluster analysis or clustering is to group a set of objects that objects in the same group (called a cluster) are more similar (in some sense) to each other than to those in other groups (clusters).
 # ![image.png](Unsupervise3.png)
 # 
 # Clustering, however, has many different names (with respect to the fields it is being applied):
@@ -708,28 +846,31 @@ print('Accuracy of GNB classifier on test set: {:.2f}'
 # **All the above names essentially mean clustering.**
 # 
 # Cluster analysis have an incredible wide range of applications and are quite useful to solve real world problems such as anomaly detection, recommending systems, documents grouping, or finding customers with common interests based on their purchases.
-# Some of the most common clustering algorithms, and the ones that will be explored in the workshop, are:
+# Some of the most common clustering algorithms will be explored in the workshop, are:
 # * K-Means
 # * Hierarchical Clustering
-# * Density Based Scan Clustering (DBSCAN)
-# * Gaussian Clustering Model
+# 
 # 
 # ## Choosing a Problem
 # 
-# We will take an example of market segmentation. There will be certain features due to which the market is segmented. We will try to analyse the type of customers in the market based on the features. The data set consist of 30 samples and features are satisfaction and loyalty respectively. 
+# We will take an example of market segmentation. The data set contains 30 samples and two features, satisfaction and loyalty. We will try to analyse the type of customers in the market based on the features.
+
+# In[14]:
+
 
 # import packages
-import numpy as np
 import pandas as pd
-import matplotlib.pyplot as plt
-import seaborn as sns
-sns.set()
-
 # import data
-data=pd.read_csv(r"I:\Classes\OIT_Training\Python for Machine Learning\kmeans clustering.csv")
+data=pd.read_csv("kmeans clustering.csv")
 data.head()
 
+
+# In[15]:
+
+
 # scatter plot
+import matplotlib.pyplot as plt
+import seaborn as sns
 sns.scatterplot(x="Satisfaction", y="Loyalty",  data=data)
 plt.show()
 
@@ -746,51 +887,64 @@ plt.show()
 # 
 # reference: https://towardsdatascience.com/understanding-k-means-clustering-in-machine-learning-6a6e67336aa1
 
+# In[19]:
+
+
 from sklearn.cluster import KMeans
 
-# copy the data and ignore the feature name and store the data into a variable X.
+# copy the data and ignore the feature names and store the data into a variable X.
 x = data.copy()
 
-# create a variable kmeans using kmeans function and passing the argument 2 in the Kmeans
-kmeans = KMeans(2)
-kmeans.fit(x)
+# split the customers into two clusters
+# create a variable kmeans using kmeans function and passing the argument 2 in the Kmeans kmeans = KMeans(2) # 
+
+
+# fit the kmeans model, kmeans.fit(x)
+
 
 # Clustering result
 clusters = x.copy()
+# create a predicted label clusters['cluster_pred'] = kmeans.fit_predict(x)
+
 clusters['cluster_pred'] = kmeans.fit_predict(x)
 
 
 # Plot the clusters
 
+# In[20]:
+
+
 plt.scatter(clusters['Satisfaction'], clusters['Loyalty'],c=clusters['cluster_pred'], cmap = 'rainbow')
 plt.xlabel('Satisfaction')
-plt.ylabel('Loyalthy')
+plt.ylabel('Loyalty')
 plt.show()
+# colormap reference: https://matplotlib.org/3.1.1/gallery/color/colormap_reference.html
 
 
 # ## The Problem
-# 
-# The biggest problem here is that Satisfaction is chosen as a feature and loyalty has been neglected. We can see in the figure that all the element to the right of 6 forms one cluster and the other on the left forms another. This is a bias result because our algorithm has discarded the Loyalty feature. It has done the clustering only on the basis of satisfaction. This does not give an appropriate result through which we can analyze things.
+# The biggest problem here is that Satisfaction is chosen as a feature and loyalty has been ignored. 
 # Satisfaction was chosen as the feature because it had large values.
-# So the problem is because both the data are not scaled. First, we have to standardize the data to make both the data have equal weights in our clustering.
-# We can’t neglect loyalty as it has an important role in the analyses of market segmentation.
-# 
-# The sklearn helps us to scale the data.
-# The data is scaled around zero mean. Now we can see that both the data are equally scaled and now both will have equal chance of being selected as feature.
+# So the problem is because both variables are not scaled. First we have to standardize the data to make both two variables have equal weights in our clustering. We will scale the data around zero mean. 
 
-from sklearn import preprocessing
-x_scaled = preprocessing.scale(x)
+# In[18]:
+
+
+from sklearn.preprocessing import scale
+x_scaled = scale(x)
 x_scaled
 
 
 # ## The Elbow Method:
-# Here the elbow method comes handy to help us figure out how many clusters do we need. What elbow method does is it starts of with making one cluster to the number of clusters in our sample and with the kmeans inertia value we determine what would be the appropriate number of clusters.
-# We get all the inertia value or the within the cluster sum of square using the command below. 
+# Here the elbow method can help us figure out how many clusters we need. What elbow method does is it starts of with making one cluster to the number of clusters in our sample and with the kmeans inertia value. Based on the values, we determine what the appropriate number of clusters is.
+
+# In[21]:
+
 
 wcss = []
 for i in range (1, 30):
     kmeans = KMeans(i)
     kmeans.fit(x_scaled)
+    # add the kmeans.inertia value to wcss #wcss.append(kmeans.inertia_)
     wcss.append(kmeans.inertia_)
 # visualized the Elbow method
 plt.plot(range(1,30), wcss)
@@ -802,16 +956,24 @@ plt.show()
 # Here the elbow point comes at around 4, so the optimal number of cluster is 4. 
 # 
 
+# In[22]:
+
+
 kmeans_new = KMeans(4)
 kmeans.fit(x_scaled)
 cluster_new = x.copy()
 cluster_new['cluster_pred']=kmeans_new.fit_predict(x_scaled)
+#cluster_new
+
 
 # Plot the newly cluster:
 
+# In[23]:
+
+
 plt.scatter(clusters['Satisfaction'], clusters['Loyalty'],c=cluster_new['cluster_pred'], cmap = 'rainbow')
 plt.xlabel('Satisfaction')
-plt.ylabel('Loyalthy')
+plt.ylabel('Loyalty')
 plt.show()
 
 
@@ -829,11 +991,18 @@ plt.show()
 # 
 # Reference: https://www.displayr.com/what-is-dendrogram/
 
+# In[24]:
+
+
 # plot dendrogram 
 from scipy.cluster import hierarchy
 Z = hierarchy.linkage(x_scaled,'ward')
 dn = hierarchy.dendrogram(Z)
 plt.show()
+
+
+# In[25]:
+
 
 # import hierarchical clustering
 from sklearn.cluster import AgglomerativeClustering
@@ -843,69 +1012,24 @@ hc = AgglomerativeClustering(n_clusters=4, affinity = 'euclidean', linkage = 'wa
 
 # save clusters for chart
 cluster_new['cluster_hc'] = hc.fit_predict(x_scaled)
-cluster_new
+#cluster_new
+
+
+# In[26]:
+
+
 # plot the cluster
 plt.close()
 plt.scatter(cluster_new['Satisfaction'], cluster_new['Loyalty'],c=cluster_new['cluster_hc'], cmap = 'rainbow')
 plt.xlabel('Satisfaction')
-plt.ylabel('Loyalthy')
+plt.ylabel('Loyalty')
 plt.show()
 
 
-# ## Density Based Scan Clustering (DBSCAN)
-# 
-# The key idea is that for each point of a cluster, the neighborhood of a given radius has to contain at least a minimum number of points. Compared to centroid-based clustering like K-Means, density-based clustering works by identifying “dense” clusters of points, allowing it to learn clusters of arbitrary shape and identify outliers in the data. 
-# 
-# **DBSCAN algorithm requires two parameters:**
-# 
-# **eps** : It defines the neighborhood around a data point i.e. if the distance between two points is lower or equal to ‘eps’ then they are considered as neighbors. If the eps value is chosen too small then large part of the data will be considered as outliers. If it is chosen very large then the clusters will merge and majority of the data points will be in the same clusters. One way to find the eps value is based on the k-distance graph.
-# 
-# **MinPts**: Minimum number of neighbors (data points) within eps radius. Larger the dataset, the larger value of MinPts must be chosen. As a general rule, the minimum MinPts can be derived from the number of dimensions D in the dataset as, MinPts >= D+1. The minimum value of MinPts must be chosen at least 3.
-# In this algorithm, we have 3 types of data points.
-# 
-# **Core Point**: A point is a core point if it has more than MinPts points within eps.
-# **Border Point**: A point which has fewer than MinPts within eps but it is in the neighborhood of a core point.
-# **Noise or outlier**: A point which is not a core point or border point.
-# 
-# Reference: https://www.geeksforgeeks.org/dbscan-clustering-in-ml-density-based-clustering/
-
-from sklearn.cluster import DBSCAN 
-db_default = DBSCAN(eps = 0.55, min_samples = 3)
-
-# save clusters for chart
-cluster_new['cluster_db'] =db_default.fit_predict(x_scaled)
-#print(cluster_db)
-
-# plot the cluster
-plt.close()
-plt.scatter(cluster_new['Satisfaction'], cluster_new['Loyalty'],c=cluster_new['cluster_db'], cmap = 'rainbow')
-plt.xlabel('Satisfaction')
-plt.ylabel('Loyalthy')
-plt.show()
+# In[27]:
 
 
-# ## Gaussian Mixture Model
-# 
-# A Gaussian mixture model is a probabilistic model that assumes all the data points are generated from a mixture of a finite number of Gaussian distributions with unknown parameters.
-# 
-# The GaussianMixture object implements the expectation-maximization (EM) algorithm for fitting mixture-of-Gaussian models. It can also draw confidence ellipsoids for multivariate models, and compute the Bayesian Information Criterion to assess the number of clusters in the data.
-# 
-# Reference: https://scikit-learn.org/stable/modules/mixture.html
-
-from sklearn.mixture import GaussianMixture
-gmm = GaussianMixture(n_components=4)
-
-# save cluster into a column
-cluster_new['cluster_gmm'] = gmm.fit_predict(x_scaled)
-
-# plot the cluter
-plt.close()
-plt.scatter(cluster_new['Satisfaction'], cluster_new['Loyalty'],c = cluster_new['cluster_gmm'], cmap = 'rainbow')
-plt.xlabel('Satisfaction')
-plt.ylabel('Loyalthy')
-plt.show()
-
-# plot the k-means cluster again
+# plot the Kmean cluster again.
 plt.scatter(clusters['Satisfaction'], clusters['Loyalty'],c=cluster_new['cluster_pred'], cmap = 'rainbow')
 plt.xlabel('Satisfaction')
 plt.ylabel('Loyalthy')
@@ -915,9 +1039,9 @@ plt.show()
 # ## Analysis (The final step):
 # Through the given figure following things can be interpreted:
 # 
-# The sky blue dots are the people who are less satisfied and less loyal and therefore can be termed as alienated.
-# The yellow dots are people with high loyalty and less satisfaction.
-# The purple dots are the people with high loyalty and high satisfaction and they are the fans.
+# The yellow are the people who are less satisfied and less loyal and therefore can be termed as alienated.
+# The purple dots are people with high loyalty and less satisfaction.
+# The blue dots are the people with high loyalty and high satisfaction and they are the fans.
 # The red dots are the people who are in the midst of things.
 # The ultimate goal of any businessman would be to have as many people up there in the fans category. We are ready with a solution and we can target the audience as per our analysis. For example, the crowd who are supporters can easily be turned into fans by fulfilling their satisfaction level.
 # 
@@ -929,10 +1053,13 @@ plt.show()
 # ## Another example
 # The python commands below generates 1000 random dataset of X and Y and the scatter plot of X can make two moons shape. We are going to use different linkage methods for hierarchical clustering on datasets that are “interesting”. 
 
+# In[28]:
+
 
 from sklearn.datasets import make_moons
 from matplotlib import pyplot
 from pandas import DataFrame
+import numpy as np
 np.random.seed(0)
 # generate 2d classification dataset
 X,y= make_moons(n_samples=1000, noise=0.05)
@@ -945,6 +1072,10 @@ plt.scatter(df['x'], df['y'], c=y, cmap = 'rainbow')
 plt.xlabel('x')
 plt.ylabel('y')
 plt.show()
+
+
+# In[29]:
+
 
 #heirotical ward method
 x = df[['x','y']]
@@ -960,6 +1091,10 @@ cluster_moon['cluster_ward'] = hc.fit_predict(x)
 
 # print out the data.
 cluster_moon.head(n=10)
+
+
+# In[30]:
+
 
 # plot the output
 plt.scatter(cluster_moon['x'], cluster_moon['y'],c=cluster_moon['cluster_ward'], cmap = 'rainbow')
@@ -981,6 +1116,24 @@ plt.show()
 # hc = AgglomerativeClustering(n_clusters=2, affinity = 'euclidean', linkage = 'complete')
 # ```
 
+# In[ ]:
+
+
+hc = AgglomerativeClustering(n_clusters=2, affinity = 'euclidean', linkage = 'single')
+
+# save clusters for chart
+cluster_moon = df.copy()
+
+# create a variable named cluster_ward  in cluster_moon data.
+cluster_moon['cluster_ward'] = hc.fit_predict(x)
+
+# print out the data.
+cluster_moon.head(n=10)
+# plot the output
+plt.scatter(cluster_moon['x'], cluster_moon['y'],c=cluster_moon['cluster_ward'], cmap = 'rainbow')
+plt.xlabel('x')
+plt.ylabel('y')
+plt.show()
 
 
 # ## Answer
@@ -999,7 +1152,7 @@ plt.show()
 # ```
 # 2. Import the data named "'bikeshare.csv" as a dataframe.
 # ```python
-# data =  pd.read_csv(r"C:\Users\XZHU8\Documents\OIT related\Workshop\Python for Machine Learning\bikeshare.csv")
+# data =  pd.read_csv("bikeshare.csv")
 # ```
 # 3. Create a Python list of feature names:
 #     X is "season", "month", "hour", "holiday", "weekday", "workingday",
@@ -1105,13 +1258,13 @@ plt.show()
 # plt.show()
 # ```
 
-# In[54]:
+# In[ ]:
 
 
-data =  pd.read_csv(r"C:\Users\XZHU8\Documents\OIT related\Workshop\Python for Machine Learning\bikeshare.csv")
+data =  pd.read_csv("bikeshare.csv")
 
 
-# In[55]:
+# In[ ]:
 
 
 FeatureNames = ["season", "month", "hour", "holiday", "weekday", "workingday",
@@ -1124,7 +1277,7 @@ y = data["riders"]
 X_train, X_test, y_train, y_test = train_test_split(X, y, random_state=1)
 
 
-# In[56]:
+# In[ ]:
 
 
 #import the packages
@@ -1137,7 +1290,7 @@ from yellowbrick.features import Rank2D
 from yellowbrick.regressor import ResidualsPlot
 
 
-# In[57]:
+# In[ ]:
 
 
 # Linear Regression Model
@@ -1149,7 +1302,7 @@ linreg.fit(X_train, y_train)
 y_pred = linreg.predict(X_test)
 
 
-# In[58]:
+# In[ ]:
 
 
 from yellowbrick.regressor import ResidualsPlot
