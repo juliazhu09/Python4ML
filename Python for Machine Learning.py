@@ -25,7 +25,7 @@
 # If the temperature is 65°F, you would still wear a jacket although you were never told the outcome for that particular temperature.
 # 
 # Now, let's move on to a simple regression problem which the computer will solve for us.
-# Before we begin, we need to import the scikit-learn package, it provides easy to use functions and a lot of machine learning models. We will use it for today's workshop. 
+# Before we begin, we need to import the scikit-learn and yellowbrick package, scikit-learn provides easy to use functions and a lot of machine learning models and the yellowbrick package helps us visualize the machine learning model output. We will use them for today's workshop. 
 # 
 # ```python
 # # install scikit package using conda
@@ -62,7 +62,7 @@ print("yellowbrick version is:" + yellowbrick.__version__)
 # 
 # ## How to Generate a Data Set
 
-# In[2]:
+# In[41]:
 
 
 # import randint function from random package
@@ -72,8 +72,10 @@ import numpy as np
 # Create two empty list to storage training input and output data 
 TrainInput = list()
 TrainOutput = list()
-
+# create error terms
 err = np.zeros(100)
+
+# err = np.random.normal(0, 10, 1000)
 
 # Generate 100 random set of x1 and x2
 for i in range(100):
@@ -85,13 +87,13 @@ for i in range(100):
     TrainOutput.append(y)
 
 
-# In[3]:
+# In[42]:
 
 
 TrainInput[0:6]
 
 
-# In[4]:
+# In[43]:
 
 
 TrainOutput[0:6]
@@ -104,7 +106,7 @@ TrainOutput[0:6]
 # We have generated the training data already, so create a linear regression model and pass it the training data. 
 # 
 
-# In[5]:
+# In[44]:
 
 
 from sklearn.linear_model import LinearRegression
@@ -127,7 +129,7 @@ print ('Intercept: {}'.format(model.intercept_))
 # 
 # The outcome should be 10+2```*```20 =50. Let us see what we get.
 
-# In[ ]:
+# In[45]:
 
 
 # Test data
@@ -154,7 +156,7 @@ print('Outcome: {}'.format(Outcome))
 # 
 # Reference: https://medium.com/simple-ai/linear-regression-intro-to-machine-learning-6-6e320dbdaf06
 
-# In[ ]:
+# In[46]:
 
 
 #import the packages
@@ -165,13 +167,13 @@ data = pd.read_csv("Advertising.csv")
 data.head(10)
 
 
-# In[ ]:
+# In[47]:
 
 
 data.describe()
 
 
-# In[ ]:
+# In[49]:
 
 
 # create a Python list of feature names:'TV', 'radio', 'newspaper'
@@ -179,21 +181,21 @@ feature_names = []
 feature_names
 
 
-# In[ ]:
+# In[50]:
 
 
 # Select input variables Xs.
 X = data[feature_names]
 
 
-# In[ ]:
+# In[51]:
 
 
 # Select 'sales' as the y variable
 y = data[]
 
 
-# In[ ]:
+# In[52]:
 
 
 # visualize relationship between the variables
@@ -204,17 +206,17 @@ visualizer.transform(data)
 visualizer.show()
 
 
-# In[ ]:
+# In[55]:
 
 
 # import train_test_split function
 from sklearn.model_selection import train_test_split
 # Split X and y into traning and testing sets using train_test_split(X, y, random_state=1)
-X_train, X_test, y_train, y_test =  
+X_train, X_test, y_train, y_test =  train_test_split(X, y, random_state=1)
 # Note random_state=int, random_state is the seed used by the random number generator
 
 
-# In[ ]:
+# In[56]:
 
 
 #import model
@@ -231,7 +233,7 @@ y_pred = linreg.predict(X_test)
 linreg.coef_
 
 
-# In[ ]:
+# In[57]:
 
 
 # plot the regression line use seaborn 
@@ -241,7 +243,7 @@ from sklearn.metrics import r2_score
 print('R2 Score:', r2_score(y_test,y_pred))
 
 
-# In[ ]:
+# In[58]:
 
 
 from yellowbrick.regressor import ResidualsPlot
@@ -334,7 +336,7 @@ visualizer.show()
 # For instance, suppose you are given a basket filled with different kinds of fruits and ask you to train the model and then to predict the fruit type using test data. 
 # The fruits dataset was created by Dr. Iain Murray from University of Edinburgh. He bought a few dozen oranges, mandarin, lemons and apples of different varieties, and recorded their measurements in a table. And then the professors at University of Michigan formatted the fruits data slightly. Let us import the data and see the first several rows of the data. 
 
-# In[6]:
+# In[59]:
 
 
 import pandas as pd
@@ -400,7 +402,7 @@ plt.show()
 # 
 # 
 
-# In[16]:
+# In[63]:
 
 
 #Create a feature list and y
@@ -417,7 +419,7 @@ X_train = scaler.fit_transform(X_train)
 X_test = scaler.transform(X_test)
 
 
-# In[17]:
+# In[64]:
 
 
 X_train[0:6]
@@ -432,7 +434,7 @@ X_train[0:6]
 # 
 # **Accuracy:** the ratio of number of correct predictions to the total number of input samples. 
 
-# In[ ]:
+# In[65]:
 
 
 from sklearn.linear_model import LogisticRegression
@@ -463,15 +465,16 @@ print('Accuracy of Logistic regression classifier on test set: {:.2f}'
 # A decision tree is a decision support tool that uses a tree-like graph or model of decisions and their possible consequences, including chance event outcomes, resource costs, and utility. It is one way to display an algorithm that only contains conditional control statements.
 # Reference:https://medium.com/greyatom/decision-trees-a-simple-way-to-visualize-a-decision-dc506a403aeb
 
-# In[ ]:
+# In[66]:
 
 
 from sklearn.tree import DecisionTreeClassifier
 
 dct = 
+
 cm = ConfusionMatrix(dct)
 
-# Fit the passed model. 
+# Fit the model using training data. 
 cm.fit(X_train, y_train)
 # To create the ConfusionMatrix, we need some test data. Score runs predict() on the data
 # and then creates the confusion_matrix from scikit-learn.
@@ -489,15 +492,16 @@ print('Accuracy of Decision Tree classifier on test set: {:.2f}'
 # The KNN algorithm assumes that similar things exist in close proximity. In other words, similar things are near to each other.
 # Reference:https://towardsdatascience.com/machine-learning-basics-with-the-k-nearest-neighbors-algorithm-6a6e71d01761
 
-# In[ ]:
+# In[67]:
 
 
 from sklearn.neighbors import KNeighborsClassifier
 
 knn = 
+
 cm = ConfusionMatrix(knn)
 
-# Fit the passed model. 
+# Fit the model using the training data. 
 cm.fit(X_train, y_train)
 # To create the ConfusionMatrix, we need some test data. Score runs predict() on the data
 # and then creates the confusion_matrix from scikit-learn.
@@ -517,7 +521,7 @@ print('Accuracy of K-NN classifier on test set: {:.2f}'
 # The main goal of dimensionality reduction techniques is to reduce the dimensions by removing the redundant and dependent features by transforming the features from higher dimensional space to a space with lower dimensions.
 # Reference:https://medium.com/@srishtisawla/linear-discriminant-analysis-d38decf48105
 
-# In[ ]:
+# In[69]:
 
 
 from sklearn.discriminant_analysis import LinearDiscriminantAnalysis
@@ -526,7 +530,7 @@ lda =
 
 cm = ConfusionMatrix(lda)
 
-# Fit the passed model. 
+# Fit the model using training data. 
 cm.fit(X_train, y_train)
 # To create the ConfusionMatrix, we need some test data. Score runs predict() on the data
 # and then creates the confusion_matrix from scikit-learn.
@@ -572,7 +576,7 @@ print('Accuracy of LDA classifier on test set: {:.2f}'
 #    
 #   
 
-# In[ ]:
+# In[70]:
 
 
 from sklearn.ensemble import RandomForestClassifier
@@ -581,7 +585,7 @@ rfc =
 
 cm = ConfusionMatrix(rfc)
 
-# Fit the passed model. 
+# Fit the model using training data. 
 cm.fit(X_train, y_train)
 # To create the ConfusionMatrix, we need some test data. Score runs predict() on the data
 # and then creates the confusion_matrix from scikit-learn.
@@ -638,7 +642,7 @@ print('Accuracy of RFC classifier on test set: {:.2f}'
 #   
 #   Reference:  https://www.heatonresearch.com/2017/06/01/hidden-layers.html
 
-# In[ ]:
+# In[71]:
 
 
 from sklearn.neural_network import MLPClassifier
@@ -648,8 +652,9 @@ mlp = MLPClassifier(hidden_layer_sizes=(20,20,20), max_iter=500)  # max_iter: Ma
 
 cm = ConfusionMatrix(mlp)
 
-# Fit fits the passed model. 
+# Fit the model using the training data. 
 cm.fit(X_train, y_train)
+
 # To create the ConfusionMatrix, we need some test data. Score runs predict() on the data
 # and then creates the confusion_matrix from scikit-learn.
 cm.score(X_test, y_test)
@@ -681,7 +686,7 @@ print('Accuracy of MLP classifier on test set: {:.2f}'
 # F1 score = 2 * (true positives) / (2 * true positives + false positives + false negatives)
 # ```
 
-# In[ ]:
+# In[72]:
 
 
 from yellowbrick.classifier import ClassificationReport
@@ -697,10 +702,18 @@ g = visualizer.poof()             # Draw/show/poof the data
 # ## Predicted vs Actual in Test Data
 # 
 # ```
-# y_new=knn.predict(X_test)
-# test = list(zip(y_new, y_test))
+# y_pred=knn.predict(X_test)
+# test = list(zip(y_pred, y_test))
 # print(test)
 # ```
+
+# In[73]:
+
+
+y_pred=knn.predict(X_test)
+test = list(zip(y_pred, y_test))
+print(test)
+
 
 # ## Exercise2: 
 # 
@@ -733,16 +746,16 @@ g = visualizer.poof()             # Draw/show/poof the data
 # cm.score(X_test, y_test)
 # # How did we do?
 # cm.show()
-# print('Accuracy of RFC classifier on training set: {:.2f}'
+# print('Accuracy of classifier on training set: {:.2f}'
 #      .format(gnb.score(X_train, y_train)))
-# print('Accuracy of RFC classifier on test set: {:.2f}'
+# print('Accuracy of classifier on test set: {:.2f}'
 #      .format(gnb.score(X_test, y_test)))
 #      
 # 
 # ```
 # 
 
-# In[1]:
+# In[78]:
 
 
 from sklearn.datasets import load_breast_cancer
@@ -753,7 +766,7 @@ data = load_breast_cancer()
 data['data'][0:1]
 
 
-# In[10]:
+# In[79]:
 
 
 # Organize our data
@@ -767,7 +780,7 @@ X_train, X_test, y_train, y_test = train_test_split(X,y,test_size=0.33,random_st
 X_train[0:6]
 
 
-# In[9]:
+# In[80]:
 
 
 #fit Gaussian Naive model
@@ -777,9 +790,9 @@ from yellowbrick.classifier import ConfusionMatrix
 gnb = GaussianNB()
 cm = ConfusionMatrix(gnb, classes=y_names, label_encoder={0:'malignant', 1: 'benign'})
 
-# Fit fits the passed model. 
+# Fit the model using the training data. 
 cm.fit(X_train, y_train)
-# To create the ConfusionMatrix, we need some test data. Score runs predict() on the data
+# To create the ConfusionMatrix, we need some test data. Score runs predict() on the testdata
 # and then creates the confusion_matrix from scikit-learn.
 cm.score(X_test, y_test)
 
@@ -792,7 +805,7 @@ print('Accuracy of GNB classifier on test set: {:.2f}'
 
 
 
-# In[11]:
+# In[81]:
 
 
 # fit a logistic regression
@@ -800,7 +813,7 @@ from sklearn.linear_model import LogisticRegression
 from yellowbrick.classifier import ConfusionMatrix
 
 logreg = 
-#logreg = LogisticRegression(solver='lbfgs', multi_class='auto')
+
 # Pass the model to the ConfusionMatrix visualizer cm = ConfusionMatrix(logreg)
 
 
@@ -855,7 +868,7 @@ print('Accuracy of Logistic regression classifier on test set: {:.2f}'
 # 
 # We will take an example of market segmentation. The data set contains 30 samples and two features, satisfaction and loyalty. We will try to analyse the type of customers in the market based on the features.
 
-# In[14]:
+# In[83]:
 
 
 # import packages
@@ -865,7 +878,7 @@ data=pd.read_csv("kmeans clustering.csv")
 data.head()
 
 
-# In[15]:
+# In[84]:
 
 
 # scatter plot
@@ -887,7 +900,7 @@ plt.show()
 # 
 # reference: https://towardsdatascience.com/understanding-k-means-clustering-in-machine-learning-6a6e67336aa1
 
-# In[19]:
+# In[85]:
 
 
 from sklearn.cluster import KMeans
@@ -896,11 +909,12 @@ from sklearn.cluster import KMeans
 x = data.copy()
 
 # split the customers into two clusters
-# create a variable kmeans using kmeans function and passing the argument 2 in the Kmeans kmeans = KMeans(2) # 
+# create a variable kmeans using kmeans function and passing the argument 2 in the Kmeans: kmeans = KMeans(2) # 
 
+kmeans = KMeans(2)
 
 # fit the kmeans model, kmeans.fit(x)
-
+kmeans.fit(x)
 
 # Clustering result
 clusters = x.copy()
@@ -911,7 +925,7 @@ clusters['cluster_pred'] = kmeans.fit_predict(x)
 
 # Plot the clusters
 
-# In[20]:
+# In[86]:
 
 
 plt.scatter(clusters['Satisfaction'], clusters['Loyalty'],c=clusters['cluster_pred'], cmap = 'rainbow')
@@ -924,9 +938,10 @@ plt.show()
 # ## The Problem
 # The biggest problem here is that Satisfaction is chosen as a feature and loyalty has been ignored. 
 # Satisfaction was chosen as the feature because it had large values.
-# So the problem is because both variables are not scaled. First we have to standardize the data to make both two variables have equal weights in our clustering. We will scale the data around zero mean. 
+# So the problem is because both variables are not scaled. First we have to standardize the data to make both two variables have equal weights in our clustering. We will scale the data around zero mean and one standard deviation. 
+# 
 
-# In[18]:
+# In[89]:
 
 
 from sklearn.preprocessing import scale
@@ -936,11 +951,12 @@ x_scaled
 
 # ## The Elbow Method:
 # Here the elbow method can help us figure out how many clusters we need. What elbow method does is it starts of with making one cluster to the number of clusters in our sample and with the kmeans inertia value. Based on the values, we determine what the appropriate number of clusters is.
+# Inertia value: measures the distance between each data point and its centroid, squares this distance, and sum these squares across one cluster. It is the within cluster sum of square.
 
 # In[21]:
 
 
-wcss = []
+wcss = list()
 for i in range (1, 30):
     kmeans = KMeans(i)
     kmeans.fit(x_scaled)
@@ -956,7 +972,7 @@ plt.show()
 # Here the elbow point comes at around 4, so the optimal number of cluster is 4. 
 # 
 
-# In[22]:
+# In[90]:
 
 
 kmeans_new = KMeans(4)
@@ -968,7 +984,7 @@ cluster_new['cluster_pred']=kmeans_new.fit_predict(x_scaled)
 
 # Plot the newly cluster:
 
-# In[23]:
+# In[91]:
 
 
 plt.scatter(clusters['Satisfaction'], clusters['Loyalty'],c=cluster_new['cluster_pred'], cmap = 'rainbow')
@@ -1119,7 +1135,7 @@ plt.show()
 # In[ ]:
 
 
-hc = AgglomerativeClustering(n_clusters=2, affinity = 'euclidean', linkage = 'single')
+hc = AgglomerativeClustering(n_clusters=2, affinity = 'euclidean', linkage = '')
 
 # save clusters for chart
 cluster_moon = df.copy()
