@@ -54,7 +54,7 @@ print("yellowbrick version is:" + yellowbrick.__version__)
 # |----|----|----|
 # | 1  | 2  | 5  |
 # | 4  | 5  | 14 |
-# | 11 | 12 | 35 |
+# | 2  | 3  | 8  |
 # | 21 | 22 | 65 |
 # | 5  | 5  | 15 |
 # 
@@ -62,7 +62,7 @@ print("yellowbrick version is:" + yellowbrick.__version__)
 # 
 # ## How to Generate a Data Set
 
-# In[41]:
+# In[1]:
 
 
 # import randint function from random package
@@ -75,7 +75,7 @@ TrainOutput = list()
 # create error terms
 err = np.zeros(100)
 
-# err = np.random.normal(0, 10, 1000)
+# err = np.random.normal(0, 10, 100)
 
 # Generate 100 random set of x1 and x2
 for i in range(100):
@@ -87,13 +87,13 @@ for i in range(100):
     TrainOutput.append(y)
 
 
-# In[42]:
+# In[2]:
 
 
 TrainInput[0:6]
 
 
-# In[43]:
+# In[3]:
 
 
 TrainOutput[0:6]
@@ -212,7 +212,7 @@ visualizer.show()
 # import train_test_split function
 from sklearn.model_selection import train_test_split
 # Split X and y into traning and testing sets using train_test_split(X, y, random_state=1)
-X_train, X_test, y_train, y_test =  train_test_split(X, y, random_state=1)
+X_train, X_test, y_train, y_test =  
 # Note random_state=int, random_state is the seed used by the random number generator
 
 
@@ -336,7 +336,7 @@ visualizer.show()
 # For instance, suppose you are given a basket filled with different kinds of fruits and ask you to train the model and then to predict the fruit type using test data. 
 # The fruits dataset was created by Dr. Iain Murray from University of Edinburgh. He bought a few dozen oranges, mandarin, lemons and apples of different varieties, and recorded their measurements in a table. And then the professors at University of Michigan formatted the fruits data slightly. Let us import the data and see the first several rows of the data. 
 
-# In[59]:
+# In[8]:
 
 
 import pandas as pd
@@ -366,7 +366,7 @@ sns.catplot(x='fruit_name',  kind='count', color='b', data=fruits)
 plt.show()
 
 
-# In[9]:
+# In[22]:
 
 
 # Scatter plot 
@@ -375,14 +375,14 @@ sns.scatterplot(x="width", y="height",hue="fruit_name", style="fruit_name", data
 plt.show()
 
 
-# In[10]:
+# In[23]:
 
 
 # Descriptive Statistics 
 fruits.describe()
 
 
-# In[14]:
+# In[24]:
 
 
 #histogram for each numeric imput variable
@@ -391,7 +391,7 @@ fruits.drop('fruit_label', axis=1).hist(bins=30, figsize=(12,9))
 plt.show()
 
 
-# Some numerical values do not have the same scale, so we need to scale them. We will split the dataset into training and test sets first. Then we scale the training data and then apply scaling to the test set, because in practice you are not provided with test data and you just have to evaluate your model on test data.
+# Some numerical values do not have the same scale, so we need to scale them. We will split the dataset into training and test sets first. Then we scale the training data and then apply scaler to the test set, because in practice you are not provided with test data and you just have to evaluate your model on test data.
 # 
 # Here we use MinMaxScaler, which rescales the data set such that all feature values are in the range [0, 1]. 
 # 
@@ -402,7 +402,7 @@ plt.show()
 # 
 # 
 
-# In[63]:
+# In[25]:
 
 
 #Create a feature list and y
@@ -419,7 +419,7 @@ X_train = scaler.fit_transform(X_train)
 X_test = scaler.transform(X_test)
 
 
-# In[64]:
+# In[26]:
 
 
 X_train[0:6]
@@ -430,11 +430,11 @@ X_train[0:6]
 # 
 # Reference: https://ml-cheatsheet.readthedocs.io/en/latest/logistic_regression.html
 # 
-# **Confusion matrix:** a table to describe the performance of a classification model (or “classifier”) on a set of test data for which the true values are known. It allows the visualization of the performance of an algorithm.
+# **Confusion matrix:** a table to describe the performance of a classification model (or “classifier”) on the test data set for which the true values are known. It allows the visualization of the performance of an algorithm.
 # 
 # **Accuracy:** the ratio of number of correct predictions to the total number of input samples. 
 
-# In[65]:
+# In[27]:
 
 
 from sklearn.linear_model import LogisticRegression
@@ -465,7 +465,7 @@ print('Accuracy of Logistic regression classifier on test set: {:.2f}'
 # A decision tree is a decision support tool that uses a tree-like graph or model of decisions and their possible consequences, including chance event outcomes, resource costs, and utility. It is one way to display an algorithm that only contains conditional control statements.
 # Reference:https://medium.com/greyatom/decision-trees-a-simple-way-to-visualize-a-decision-dc506a403aeb
 
-# In[66]:
+# In[28]:
 
 
 from sklearn.tree import DecisionTreeClassifier
@@ -492,7 +492,7 @@ print('Accuracy of Decision Tree classifier on test set: {:.2f}'
 # The KNN algorithm assumes that similar things exist in close proximity. In other words, similar things are near to each other.
 # Reference:https://towardsdatascience.com/machine-learning-basics-with-the-k-nearest-neighbors-algorithm-6a6e71d01761
 
-# In[67]:
+# In[29]:
 
 
 from sklearn.neighbors import KNeighborsClassifier
@@ -521,7 +521,7 @@ print('Accuracy of K-NN classifier on test set: {:.2f}'
 # The main goal of dimensionality reduction techniques is to reduce the dimensions by removing the redundant and dependent features by transforming the features from higher dimensional space to a space with lower dimensions.
 # Reference:https://medium.com/@srishtisawla/linear-discriminant-analysis-d38decf48105
 
-# In[69]:
+# In[30]:
 
 
 from sklearn.discriminant_analysis import LinearDiscriminantAnalysis
@@ -576,7 +576,7 @@ print('Accuracy of LDA classifier on test set: {:.2f}'
 #    
 #   
 
-# In[70]:
+# In[31]:
 
 
 from sklearn.ensemble import RandomForestClassifier
@@ -642,7 +642,7 @@ print('Accuracy of RFC classifier on test set: {:.2f}'
 #   
 #   Reference:  https://www.heatonresearch.com/2017/06/01/hidden-layers.html
 
-# In[71]:
+# In[32]:
 
 
 from sklearn.neural_network import MLPClassifier
@@ -686,14 +686,13 @@ print('Accuracy of MLP classifier on test set: {:.2f}'
 # F1 score = 2 * (true positives) / (2 * true positives + false positives + false negatives)
 # ```
 
-# In[72]:
+# In[33]:
 
 
 from yellowbrick.classifier import ClassificationReport
 
 # Instantiate the classification model and visualizer
 visualizer = ClassificationReport(knn, support=True)
-
 visualizer.fit(X_train, y_train)  # Fit the visualizer and the model
 visualizer.score(X_test, y_test)  # Evaluate the model on the test data
 g = visualizer.poof()             # Draw/show/poof the data
@@ -707,7 +706,7 @@ g = visualizer.poof()             # Draw/show/poof the data
 # print(test)
 # ```
 
-# In[73]:
+# In[34]:
 
 
 y_pred=knn.predict(X_test)
@@ -755,7 +754,7 @@ print(test)
 # ```
 # 
 
-# In[78]:
+# In[35]:
 
 
 from sklearn.datasets import load_breast_cancer
@@ -766,21 +765,21 @@ data = load_breast_cancer()
 data['data'][0:1]
 
 
-# In[79]:
+# In[36]:
 
 
 # Organize our data
 y_names = data['target_names']
 y = data['target']
 feature_names = data['feature_names']
-X = data['data']
+
 # Split our data
 from sklearn.model_selection import train_test_split
 X_train, X_test, y_train, y_test = train_test_split(X,y,test_size=0.33,random_state=42)
 X_train[0:6]
 
 
-# In[80]:
+# In[37]:
 
 
 #fit Gaussian Naive model
@@ -805,7 +804,7 @@ print('Accuracy of GNB classifier on test set: {:.2f}'
 
 
 
-# In[81]:
+# In[38]:
 
 
 # fit a logistic regression
@@ -836,7 +835,7 @@ print('Accuracy of Logistic regression classifier on test set: {:.2f}'
 
 # ## Unsupervised Learning
 # 
-# When dealing with real-world problems, most of the time, data will not come with predefined labels, so we will want to develop machine learning models that can correctly classified the data by finding some commomality in the features to predict the classes on new data.
+# When dealing with real-world problems, most of the time, data will not come with predefined labels, but we still want to develop machine learning models that can correctly classified the data by finding some commomality in the features to predict the classes on new data.
 # 
 # Two main types of problems in unsupervised learning:
 # 
@@ -868,7 +867,7 @@ print('Accuracy of Logistic regression classifier on test set: {:.2f}'
 # 
 # We will take an example of market segmentation. The data set contains 30 samples and two features, satisfaction and loyalty. We will try to analyse the type of customers in the market based on the features.
 
-# In[83]:
+# In[39]:
 
 
 # import packages
@@ -878,7 +877,7 @@ data=pd.read_csv("kmeans clustering.csv")
 data.head()
 
 
-# In[84]:
+# In[40]:
 
 
 # scatter plot
@@ -897,10 +896,11 @@ plt.show()
 # It halts creating and optimizing clusters when either:
 # The centroids have stabilized — there is no change in their values because the clustering has been successful.
 # The defined number of iterations has been achieved.
+# ![image.gif](kmeans.gif)
 # 
 # reference: https://towardsdatascience.com/understanding-k-means-clustering-in-machine-learning-6a6e67336aa1
 
-# In[85]:
+# In[41]:
 
 
 from sklearn.cluster import KMeans
@@ -911,7 +911,7 @@ x = data.copy()
 # split the customers into two clusters
 # create a variable kmeans using kmeans function and passing the argument 2 in the Kmeans: kmeans = KMeans(2) # 
 
-kmeans = KMeans(2)
+
 
 # fit the kmeans model, kmeans.fit(x)
 kmeans.fit(x)
@@ -925,7 +925,7 @@ clusters['cluster_pred'] = kmeans.fit_predict(x)
 
 # Plot the clusters
 
-# In[86]:
+# In[42]:
 
 
 plt.scatter(clusters['Satisfaction'], clusters['Loyalty'],c=clusters['cluster_pred'], cmap = 'rainbow')
@@ -938,10 +938,10 @@ plt.show()
 # ## The Problem
 # The biggest problem here is that Satisfaction is chosen as a feature and loyalty has been ignored. 
 # Satisfaction was chosen as the feature because it had large values.
-# So the problem is because both variables are not scaled. First we have to standardize the data to make both two variables have equal weights in our clustering. We will scale the data around zero mean and one standard deviation. 
+# So the problem is because both variables are not scaled. First we have to standardize the data to make both two variables have equal weights in our clustering. We will scale the data around 0 mean and standard deviation of 1. 
 # 
 
-# In[89]:
+# In[43]:
 
 
 from sklearn.preprocessing import scale
@@ -953,7 +953,7 @@ x_scaled
 # Here the elbow method can help us figure out how many clusters we need. What elbow method does is it starts of with making one cluster to the number of clusters in our sample and with the kmeans inertia value. Based on the values, we determine what the appropriate number of clusters is.
 # Inertia value: measures the distance between each data point and its centroid, squares this distance, and sum these squares across one cluster. It is the within cluster sum of square.
 
-# In[21]:
+# In[52]:
 
 
 wcss = list()
@@ -972,7 +972,7 @@ plt.show()
 # Here the elbow point comes at around 4, so the optimal number of cluster is 4. 
 # 
 
-# In[90]:
+# In[45]:
 
 
 kmeans_new = KMeans(4)
@@ -984,7 +984,7 @@ cluster_new['cluster_pred']=kmeans_new.fit_predict(x_scaled)
 
 # Plot the newly cluster:
 
-# In[91]:
+# In[46]:
 
 
 plt.scatter(clusters['Satisfaction'], clusters['Loyalty'],c=cluster_new['cluster_pred'], cmap = 'rainbow')
@@ -997,7 +997,7 @@ plt.show()
 # 
 # ### How Hierarchical Clustering Works
 # Hierarchical clustering starts by treating each observation as a separate cluster. Then, it repeatedly executes the following two steps: (1) identify the two clusters that are closest together, and (2) merge the two most similar clusters. This continues until all the clusters are merged together. This is illustrated in the diagrams below.
-# 
+# ![image.png](clustergram.png)
 # ### Dendrogram
 # A dendrogram is a diagram that shows the hierarchical relationship between objects. It is most commonly created as an output from hierarchical clustering. The main use of a dendrogram is to work out the best way to allocate objects to clusters.
 # 
@@ -1007,7 +1007,7 @@ plt.show()
 # 
 # Reference: https://www.displayr.com/what-is-dendrogram/
 
-# In[24]:
+# In[47]:
 
 
 # plot dendrogram 
@@ -1017,7 +1017,7 @@ dn = hierarchy.dendrogram(Z)
 plt.show()
 
 
-# In[25]:
+# In[53]:
 
 
 # import hierarchical clustering
@@ -1031,7 +1031,7 @@ cluster_new['cluster_hc'] = hc.fit_predict(x_scaled)
 #cluster_new
 
 
-# In[26]:
+# In[49]:
 
 
 # plot the cluster
@@ -1042,7 +1042,7 @@ plt.ylabel('Loyalty')
 plt.show()
 
 
-# In[27]:
+# In[50]:
 
 
 # plot the Kmean cluster again.
@@ -1067,9 +1067,9 @@ plt.show()
 # 3. https://hdbscan.readthedocs.io/en/latest/comparing_clustering_algorithms.html#spectral-clustering
 # 
 # ## Another example
-# The python commands below generates 1000 random dataset of X and Y and the scatter plot of X can make two moons shape. We are going to use different linkage methods for hierarchical clustering on datasets that are “interesting”. 
+# The python commands below generates 1000 random set of X and Y and the scatter plot of X can make two moons shape. We are going to use different linkage methods for hierarchical clustering on datasets that are “interesting”. 
 
-# In[28]:
+# In[51]:
 
 
 from sklearn.datasets import make_moons
@@ -1273,58 +1273,3 @@ plt.show()
 # plt.ylabel('y')
 # plt.show()
 # ```
-
-# In[ ]:
-
-
-data =  pd.read_csv("bikeshare.csv")
-
-
-# In[ ]:
-
-
-FeatureNames = ["season", "month", "hour", "holiday", "weekday", "workingday",
-    "weather", "temp", "feelslike", "humidity", "windspeed"]
-X=data[FeatureNames]
-visualizer = Rank2D(algorithm="pearson")
-visualizer.fit_transform(X)
-visualizer.poof()
-y = data["riders"]
-X_train, X_test, y_train, y_test = train_test_split(X, y, random_state=1)
-
-
-# In[ ]:
-
-
-#import the packages
-import pandas as pd
-#import model
-from sklearn.linear_model import LinearRegression
-from sklearn.model_selection import train_test_split
-from sklearn import metrics
-from yellowbrick.features import Rank2D
-from yellowbrick.regressor import ResidualsPlot
-
-
-# In[ ]:
-
-
-# Linear Regression Model
-linreg = LinearRegression()
-# fit the model to the training data (learn the coefficients)
-linreg.fit(X_train, y_train)
-
-# make predictions on the testing set
-y_pred = linreg.predict(X_test)
-
-
-# In[ ]:
-
-
-from yellowbrick.regressor import ResidualsPlot
-# Visualzie the training and fitting model and the residual histogram
-visualizer = ResidualsPlot(linreg)
-visualizer.fit(X_train, y_train)  # Fit the training data to the model
-visualizer.score(X_test, y_test)  # Evaluate the model on the test data
-visualizer.poof()                 # Draw/show/poof the data
-
