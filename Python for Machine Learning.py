@@ -38,13 +38,21 @@
 # pip install yellowbrick
 # ```
 
-# In[1]:
+# In[57]:
 
 
 import sklearn
 import yellowbrick
-print("sklearn version is:" + sklearn.__version__)
-print("yellowbrick version is:" + yellowbrick.__version__)
+import pandas 
+import numpy
+import seaborn
+import matplotlib as plt
+print("sklearn==" + sklearn.__version__)
+print("yellowbrick==" + yellowbrick.__version__)
+print("pandas==" + pandas.__version__)
+print("numpy==" + numpy.__version__)
+print("seaborn==" + seaborn.__version__)
+print("matplotlib=" + plt.__version__)
 
 
 # Sample Training Set
@@ -213,7 +221,7 @@ visualizer.show()
 from sklearn.model_selection import train_test_split
 # Split X and y into traning and testing sets using train_test_split(X, y, random_state=1)
 X_train, X_test, y_train, y_test =  
-# Note random_state=int, random_state is the seed used by the random number generator
+# Note random_state=int, random_state is the seed used by the random number generator, test_size by default is 0.25
 
 
 # In[56]:
@@ -336,7 +344,7 @@ visualizer.show()
 # For instance, suppose you are given a basket filled with different kinds of fruits and ask you to train the model and then to predict the fruit type using test data. 
 # The fruits dataset was created by Dr. Iain Murray from University of Edinburgh. He bought a few dozen oranges, mandarin, lemons and apples of different varieties, and recorded their measurements in a table. And then the professors at University of Michigan formatted the fruits data slightly. Let us import the data and see the first several rows of the data. 
 
-# In[8]:
+# In[58]:
 
 
 import pandas as pd
@@ -348,7 +356,7 @@ fruits.head()
 # 
 # We have 59 pieces of fruits and 7 features in the dataset:
 
-# In[7]:
+# In[59]:
 
 
 print(fruits.shape)
@@ -356,7 +364,7 @@ print(fruits.shape)
 
 # We have four types of fruits in the dataset: apple, mandarin, orange, and lemon.
 
-# In[8]:
+# In[60]:
 
 
 import seaborn as sns
@@ -366,7 +374,7 @@ sns.catplot(x='fruit_name',  kind='count', color='b', data=fruits)
 plt.show()
 
 
-# In[22]:
+# In[61]:
 
 
 # Scatter plot 
@@ -382,7 +390,7 @@ plt.show()
 fruits.describe()
 
 
-# In[24]:
+# In[62]:
 
 
 #histogram for each numeric imput variable
@@ -754,7 +762,7 @@ print(test)
 # ```
 # 
 
-# In[35]:
+# In[75]:
 
 
 from sklearn.datasets import load_breast_cancer
@@ -765,21 +773,27 @@ data = load_breast_cancer()
 data['data'][0:1]
 
 
-# In[36]:
+# In[81]:
+
+
+data['feature_names']
+
+
+# In[86]:
 
 
 # Organize our data
 y_names = data['target_names']
 y = data['target']
 feature_names = data['feature_names']
-
+X = data['data']
 # Split our data
 from sklearn.model_selection import train_test_split
 X_train, X_test, y_train, y_test = train_test_split(X,y,test_size=0.33,random_state=42)
 X_train[0:6]
 
 
-# In[37]:
+# In[87]:
 
 
 #fit Gaussian Naive model
@@ -804,7 +818,7 @@ print('Accuracy of GNB classifier on test set: {:.2f}'
 
 
 
-# In[38]:
+# In[73]:
 
 
 # fit a logistic regression
@@ -1068,6 +1082,7 @@ plt.show()
 # 
 # ## Another example
 # The python commands below generates 1000 random set of X and Y and the scatter plot of X can make two moons shape. We are going to use different linkage methods for hierarchical clustering on datasets that are “interesting”. 
+# Reference: https://scikit-learn.org/stable/auto_examples/cluster/plot_linkage_comparison.html#sphx-glr-auto-examples-cluster-plot-linkage-comparison-py
 
 # In[51]:
 
